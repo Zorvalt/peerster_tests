@@ -12,4 +12,5 @@ def step_impl(context, name):
 
 @then('the node "{name}" should have logged the received message "{message}" from a client')
 def step_impl(context, name, message):
-    assert message in context.nodes[name]["logs"]
+    found = context.nodes[name].search_output("CLIENT MESSAGE "+message)
+    assert found is True
