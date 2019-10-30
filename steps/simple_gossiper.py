@@ -1,6 +1,10 @@
 from behave import *
 
+from peerster import Gossiper
+
 
 @given('a simple node "{name}"')
 def step_impl(context, name):
-    context.nodes[name] = {'logs': ""}
+    if name in context.nodes.keys():
+        raise EnvironmentError("The same node has been asked twice")
+    context.nodes[name] = Gossiper(name, simple=True)
