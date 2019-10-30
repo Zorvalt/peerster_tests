@@ -1,0 +1,16 @@
+---
+- name: a node "name"
+  uid: e3a013ae-667d-44f0-80d1-ec49ade87686
+  parameters:
+  - name: name
+  body_hash: 4902df4749672995a30a526bb9fc99ed
+- name: '"Duration" seconds elapsed'
+  uid: 7fd45838-1b8c-4960-badc-5b50590e2866
+  parameters:
+  - name: Duration
+  body_hash: 4bfb6652b8593a6e9ecb940e416b8b2f
+- name: '"name" must be running'
+  uid: 8ddf9553-e5a4-4ee1-b39e-bc4493367bf5
+  parameters:
+  - name: name
+  body_hash: e792e28de3ee764fa77e6a589aa079e2
