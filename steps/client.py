@@ -1,5 +1,7 @@
 from behave import *
 
+from peerster import Client
+
 
 @given('a node "{name}"')
 def step_impl(context, name):
@@ -8,4 +10,5 @@ def step_impl(context, name):
 
 @when('a client sends "{name}" a message "{message}"')
 def step_impl(context, name, message):
-    context.nodes[name]["logs"] += message
+    output = Client.send_to(name, message)
+    print(output)
