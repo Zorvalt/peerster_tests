@@ -1,8 +1,8 @@
-from time import sleep
+import time
 
 from behave import *
 
 
 @then('wait for {n} seconds')
 def step_impl(context, n):
-    sleep(int(n))
+    time.sleep(float(n))
