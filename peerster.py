@@ -31,20 +31,23 @@ class Client:
 
 
 class Gossiper:
-    def __init__(self, name: str, peers: str = None):
+    def __init__(self, name: str, peers: str = None, simple=False):
         offset = gossiper_name_to_port_offset(name)
         gossip_port = BASE_GOSSIP_PORT + offset
         ui_port = BASE_UI_PORT + offset
 
         self.output_file = tempfile.TemporaryFile('w+')
         self.output_buffer = []
-        self.process = subprocess.Popen([
+        command = [
             './Peerster',
             '-name=' + name,
             '-gossipAddr=127.0.0.1:' + str(gossip_port),
             '-UIPort=' + str(ui_port),
             '-GUIPort=' + str(ui_port),
-        ], stdout=self.output_file)
+        ]
+        if simple:
+            command.append('-simple')
+        self.process = subprocess.Popen(command, stdout=self.output_file)
         time.sleep(1)
 
     def search_output(self, needle: str) -> bool:
