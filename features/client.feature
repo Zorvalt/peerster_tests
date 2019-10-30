@@ -3,5 +3,5 @@ Feature: client controls the gossiper
 
   Scenario: Receive a message in simple mode
     Given a simple node "A"
-    When a simple client sends "A" a message "M"
+    When a client sends "A" a message "M"
     Then the node "A" should have logged the received message "M" from a client
