@@ -36,7 +36,7 @@ class Gossiper:
         gossip_port = BASE_GOSSIP_PORT + offset
         ui_port = BASE_UI_PORT + offset
 
-        self.output_file = tempfile.TemporaryFile('w+')
+        output_file = tempfile.NamedTemporaryFile('w+')
         self.output_buffer = []
         command = [
             './Peerster',
@@ -47,8 +47,9 @@ class Gossiper:
         ]
         if simple:
             command.append('-simple')
-        self.process = subprocess.Popen(command, stdout=self.output_file)
-        time.sleep(1)
+        self.process = subprocess.Popen(command, stdout=output_file)
+        self.output_file = open(output_file.name, 'r')
+        time.sleep(0.2)
 
     def search_output(self, needle: str) -> bool:
         self.output_file.seek(0)
