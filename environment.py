@@ -1,7 +1,9 @@
+import os
 import subprocess
 
 
 def before_feature(context, feature):
+    os.chdir("..")
     subprocess.call(["killall", "Peerster"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     assert subprocess.call(["go", "build"]) is 0
     assert subprocess.call(["go", "build"], cwd='./client') is 0
