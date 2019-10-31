@@ -12,3 +12,10 @@ Feature: client controls the gossiper
     When a client sends "A" a message "M"
     Then wait for 0.2 seconds
     Then the node "A" should have logged the received message "M" from a client
+
+  Scenario: Node shares a received message
+    Given a node "A" knowing "B"
+    Given a node "B"
+    When a client sends "A" a message "M"
+    Then wait for 0.2 seconds
+    Then the node "B" should have logged the received message "M" from node "A"
