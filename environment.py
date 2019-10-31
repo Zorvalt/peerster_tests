@@ -1,9 +1,11 @@
 import os
 import subprocess
+from pathlib import Path
 
 
 def before_feature(context, feature):
-    os.chdir("..")
+    if not Path('main.go').is_file():
+        os.chdir("..")
     subprocess.call(["killall", "Peerster"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     assert subprocess.call(["go", "build"]) is 0
     assert subprocess.call(["go", "build"], cwd='./client') is 0
