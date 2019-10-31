@@ -16,4 +16,4 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     for node in context.nodes.values():
         node.process.terminate()
-    subprocess.call(["killall", "Peerster"])
+    subprocess.call(["killall", "Peerster"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
