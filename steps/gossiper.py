@@ -17,13 +17,7 @@ def step_impl(context, name):
     context.nodes[name] = Gossiper(name)
 
 
-@then('the node "{name}" should have logged the received message "{message}" from a client')
+@then('the node "{name}" should have logged "{message}"')
 def step_impl(context, name, message):
     found = context.nodes[name].search_output(message)
-    assert found is True
-
-
-@then('the node "{receiver}" should have logged the received message "{message}" from node "{sender}"')
-def step_impl(context, receiver, message, sender):
-    found = context.nodes[receiver].search_output(message)
     assert found is True

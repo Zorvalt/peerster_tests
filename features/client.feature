@@ -5,17 +5,17 @@ Feature: client controls the gossiper
     Given a simple node "A"
     When a client sends "A" a message "M"
     Then wait for 0.5 seconds
-    Then the node "A" should have logged the received message "CLIENT MESSAGE "M"" from a client
+    Then the node "A" should have logged "CLIENT MESSAGE "M""
 
   Scenario: Client sends a message to a node
     Given a node "A"
     When a client sends "A" a message "M"
     Then wait for 0.5 seconds
-    Then the node "A" should have logged the received message "CLIENT MESSAGE "M"" from a client
+    Then the node "A" should have logged "CLIENT MESSAGE "M""
 
   Scenario: Node shares a received message
     Given a node "A" knowing "B"
     Given a node "B"
     When a client sends "A" a message "M"
     Then wait for 0.5 seconds
-    Then the node "B" should have logged the received message "RUMOR origin A from 127.0.0.1:5000 ID 2 contents "M"" from node "A"
+    Then the node "B" should have logged "RUMOR origin A from 127.0.0.1:5000 ID 2 contents "M""
