@@ -15,6 +15,7 @@ def before_feature(context, feature):
 
 def before_scenario(context, scenario):
     context.nodes = {}
+    context.files = {}
     SharedFile.remove_all_downloads()
 
 
