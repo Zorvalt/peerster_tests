@@ -16,7 +16,7 @@ class Client:
 
     @staticmethod
     def send_to_port(ui_port: int, message: str) -> str:
-        command = ['./client/client', '-UIPort=' + str(ui_port), '-msg="' + message+'"']
+        command = ['./client/client', '-UIPort=' + str(ui_port), '-msg=' + message + '']
         return subprocess.check_output(command).decode()
 
     def send_private(self, message: str, dest: str) -> str:
@@ -30,3 +30,18 @@ class Client:
     def send_private_to_port(ui_port: int, message: str, dest: str) -> str:
         command = ['./client/client', '-UIPort=' + str(ui_port), '-msg="' + message+'"', '-dest='+dest]
         return subprocess.check_output(command).decode()
+
+    def share_file(self, filename):
+        command = ['./client/client', '-UIPort=' + str(self.ui_port), '-file=' + filename + '']
+        return subprocess.call(command)
+
+    def download_file(self, filename, hash_str, source_node):
+        command = [
+            './client/client',
+            '-v',
+            '-UIPort=' + str(self.ui_port),
+            '-file={}'.format(filename),
+            '-request={}'.format(hash_str),
+            '-dest={}'.format(source_node)
+        ]
+        return subprocess.call(command)
