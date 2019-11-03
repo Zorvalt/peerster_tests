@@ -13,14 +13,15 @@ def step_impl(context, filename, size):
 
 @when('a client asks "{node_name}" to share file "{filename}"')
 def step_impl(context, node_name, filename):
-    if Client(node_name).share_file(filename) != 0:
+    file = context.files[filename]
+    if Client(node_name).share_file(file.file_name) != 0:
         raise EnvironmentError("The client failed to ask {} to share the file {}".format(node_name, filename))
 
 
 @when('a client asks "{getter_node}" to download file "{filename}" from "{source_node}"')
 def step_impl(context, getter_node, filename, source_node):
     file = context.files[filename]
-    if Client(getter_node).download_file(file.file_name, file.hash, source_node) != 0:
+    if Client(getter_node).download_file(file.file_name, file.metahash, source_node) != 0:
         raise EnvironmentError("The client failed to ask {} to download the file {} from {}",
                                getter_node, filename, source_node)
 
@@ -36,11 +37,14 @@ def step_impl(context, getter_node, filename, source_node):
 def step_impl(context, getter_node, filename, source_node):
     file = context.files[filename]
     gossiper = context.nodes[getter_node]
-    for i in range(1, file.nb_chunk):
+    for i in range(1, file.nb_chunks+1):
         log = "DOWNLOADING {} chunk {} from {}".format(file.file_name, i, source_node)
         assert gossiper.search_output(log)
 
 
-@then('the file "{filename}" should be present in the download folder')
-def step_impl(context, filename):
+@then('the node "{getter_node}" should have reconstructed the file "{filename}"')
+def step_impl(context, getter_node, filename):
+    file = context.files[filename]
+    log = "RECONSTRUCTED file {}".format(file.file_name)
+    assert context.nodes[getter_node].search_output(log)
     assert context.files[filename].is_correct()

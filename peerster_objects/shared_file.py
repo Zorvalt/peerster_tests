@@ -13,11 +13,14 @@ class SharedFile:
     def __init__(self, size: str):
         byte_size = human2bytes(size)
         self.file_name = random_string()
+        self.hashes = []
         with open(SHARE_DIRECTORY_NAME + self.file_name, "w") as fout:
             content = random_string(byte_size)
             fout.write(content)
-            self.hash = hashlib.sha256(content.encode()).hexdigest()
-        self.nb_chunks = ceil(byte_size / CHUNK_SIZE)
+            self.hashes.append(hashlib.sha256(content.encode()).digest())
+
+        self.metahash = hashlib.sha256(b''.join(self.hashes)).hexdigest()
+        self.nb_chunks = len(self.hashes)
 
     def is_downloaded(self) -> bool:
         return Path(DOWNLOAD_DIRECTORY_NAME + self.file_name).is_file()
