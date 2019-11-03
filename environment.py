@@ -2,6 +2,8 @@ import os
 import subprocess
 from pathlib import Path
 
+from peerster_objects.shared_file import SharedFile
+
 
 def before_feature(context, feature):
     if not Path('main.go').is_file():
@@ -13,6 +15,7 @@ def before_feature(context, feature):
 
 def before_scenario(context, scenario):
     context.nodes = {}
+    SharedFile.remove_all_downloads()
 
 
 def after_scenario(context, scenario):
