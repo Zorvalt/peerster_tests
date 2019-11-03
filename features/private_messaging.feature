@@ -85,7 +85,7 @@ Feature: Private messaging
     When a client sends "A" a private message "M" to "K"
 
     Then the node "K" wait for "PRIVATE origin A" or max "100" seconds
-    Then the node "A" should have logged "CLIENT MESSAGE "M" dest C"
+    Then the node "A" should have logged "CLIENT MESSAGE "M" dest K"
     Then the node "B" should not have logged "PRIVATE origin A"
     Then the node "C" should not have logged "PRIVATE origin A"
     Then the node "D" should not have logged "PRIVATE origin A"
