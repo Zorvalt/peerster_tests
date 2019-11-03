@@ -23,6 +23,12 @@ def step_impl(context, name, message):
     assert found is True
 
 
+@then('the node "{name}" should not have logged "{message}"')
+def step_impl(context, name, message):
+    found = context.nodes[name].search_output(message)
+    assert found is False
+
+
 @then('output the log of "{name}" to file "{file}"')
 def step_impl(context, name, file):
     context.nodes[name].log_output(file)
