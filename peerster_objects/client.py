@@ -38,7 +38,6 @@ class Client:
     def download_file(self, filename, hash_str, source_node):
         command = [
             './client/client',
-            '-v',
             '-UIPort=' + str(self.ui_port),
             '-file={}'.format(filename),
             '-request={}'.format(hash_str),
