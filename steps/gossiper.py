@@ -1,6 +1,6 @@
 from behave import *
 
-from peerster import Gossiper
+from peerster_objects.gossiper import Gossiper
 
 
 @given('a node "{name}" knowing "{neighbors}"')

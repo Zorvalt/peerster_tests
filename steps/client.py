@@ -1,6 +1,6 @@
 from behave import *
 
-from peerster import Client
+from peerster_objects.client import Client
 
 
 @when('a client sends "{name}" a message "{message}"')
