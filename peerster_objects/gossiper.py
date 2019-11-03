@@ -41,3 +41,8 @@ class Gossiper:
     def search_output(self, needle: str) -> bool:
         self.output_file.seek(0)
         return needle in self.output_file.read()
+
+    def log_output(self, file):
+        with open(file, "w") as fout:
+            self.output_file.seek(0)
+            fout.write(self.output_file.read())
