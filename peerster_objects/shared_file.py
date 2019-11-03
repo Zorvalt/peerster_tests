@@ -1,20 +1,27 @@
+import filecmp
+import glob
+import os
+from pathlib import Path
+
 from peerster_objects.common import *
 
 
 class SharedFile:
     def __init__(self, size: str):
         self.file_name = random_string()
-        # TODO Create the file in SHARE_DIRECTORY_NAME folder
-        # TODO Fill the file with `size` random bytes
-        pass
+        with open(SHARE_DIRECTORY_NAME + self.file_name, "w") as fout:
+            fout.write(random_string(size))
 
     def is_downloaded(self) -> bool:
-        # TODO Check if file is present in DOWNLOAD_DIRECTORY_NAME folder
-        return False
+        return Path(DOWNLOAD_DIRECTORY_NAME + self.file_name).is_file()
 
     def is_correct(self) -> bool:
         if not self.is_downloaded():
             return False
+        return filecmp.cmp(SHARE_DIRECTORY_NAME + self.file_name, DOWNLOAD_DIRECTORY_NAME + self.file_name)
 
-        # TODO Compare files in SHARE_DIRECTORY_NAME with the one in DOWNLOAD_DIRECTORY_NAME
-        return False
+    @staticmethod
+    def remove_all_downloads():
+        files = glob.glob(os.path.join(DOWNLOAD_DIRECTORY_NAME, "*"))
+        for file in files:
+            os.remove(file)
