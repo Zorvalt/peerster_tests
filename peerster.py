@@ -39,6 +39,7 @@ class Gossiper:
         command = [
             './Peerster',
             '-name=' + name,
+            '-v',
             '-gossipAddr=127.0.0.1:' + str(gossip_port),
             '-UIPort=' + str(ui_port),
             '-GUIPort=' + str(ui_port),
@@ -55,7 +56,12 @@ class Gossiper:
         output_file = tempfile.NamedTemporaryFile('w+')
         self.process = subprocess.Popen(command, stdout=output_file, stderr=output_file)
         self.output_file = open(output_file.name, 'r')
-        time.sleep(0.2)
+
+        # Waits for gossiper init
+        print("Waiting for gossiper {} to start...".format(name))
+        while not self.search_output("Gossiper running"):
+            time.sleep(0.1)
+        print("\tStarted!")
 
     def search_output(self, needle: str) -> bool:
         self.output_file.seek(0)
