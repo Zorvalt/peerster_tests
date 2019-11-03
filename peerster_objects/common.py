@@ -3,8 +3,8 @@ import string
 
 BASE_UI_PORT = 8080
 BASE_GOSSIP_PORT = 5000
-SHARE_DIRECTORY_NAME = '_SharedFolder'
-DOWNLOAD_DIRECTORY_NAME = '_Downloads'
+SHARE_DIRECTORY_NAME = '_SharedFolder/'
+DOWNLOAD_DIRECTORY_NAME = '_Downloads/'
 
 
 def gossiper_name_to_port_offset(name: str) -> int:
