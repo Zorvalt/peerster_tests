@@ -18,3 +18,15 @@ class Client:
     def send_to_port(ui_port: int, message: str) -> str:
         command = ['./client/client', '-UIPort=' + str(ui_port), '-msg="' + message+'"']
         return subprocess.check_output(command).decode()
+
+    def send_private(self, message: str, dest: str) -> str:
+        return Client.send_private_to_port(self.ui_port, message, dest)
+
+    @staticmethod
+    def send_private_to(gossiper_name: str, message: str, dest: str) -> str:
+        return Client.send_private_to_port(BASE_UI_PORT + gossiper_name_to_port_offset(gossiper_name), message, dest)
+
+    @staticmethod
+    def send_private_to_port(ui_port: int, message: str, dest: str) -> str:
+        command = ['./client/client', '-UIPort=' + str(ui_port), '-msg="' + message+'"', '-dest="'+dest+'"']
+        return subprocess.check_output(command).decode()
