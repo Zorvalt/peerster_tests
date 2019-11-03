@@ -14,6 +14,7 @@ class Gossiper:
             './Peerster',
             '-name=' + name,
             '-v',
+            '-rtimer=1',
             '-gossipAddr=127.0.0.1:' + str(gossip_port),
             '-UIPort=' + str(ui_port),
             '-GUIPort=' + str(ui_port),
