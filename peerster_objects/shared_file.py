@@ -2,11 +2,16 @@ import filecmp
 import glob
 import hashlib
 import os
-from math import ceil
 from pathlib import Path
 
 from peerster_objects.common import *
 from peerster_objects.human_bytes_converter import human2bytes
+
+
+def divide_chunks(l, n):
+    # looping till length l
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 
 class SharedFile:
@@ -17,8 +22,9 @@ class SharedFile:
         with open(SHARE_DIRECTORY_NAME + self.file_name, "w") as fout:
             content = random_string(byte_size)
             fout.write(content)
-            self.hashes.append(hashlib.sha256(content.encode()).digest())
+            self.hashes = divide_chunks(content, CHUNK_SIZE)
 
+        self.hashes = list(map(lambda chunk: hashlib.sha256(chunk.encode()).digest(), self.hashes))
         self.metahash = hashlib.sha256(b''.join(self.hashes)).hexdigest()
         self.nb_chunks = len(self.hashes)
 
