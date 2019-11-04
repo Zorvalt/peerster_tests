@@ -4,11 +4,11 @@ Feature: client controls the gossiper
   Scenario: Client sends a message to a simple node
     Given a simple node "A"
     When a client sends "A" a message "M"
-    Then wait for 0.5 seconds
+    And wait for 0.5 seconds
     Then the node "A" should have logged "CLIENT MESSAGE "M""
 
   Scenario: Client sends a message to a node
     Given a node "A"
     When a client sends "A" a message "M"
-    Then wait for 0.5 seconds
+    And wait for 0.5 seconds
     Then the node "A" should have logged "CLIENT MESSAGE "M""
