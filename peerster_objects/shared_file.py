@@ -37,6 +37,12 @@ class SharedFile:
         return filecmp.cmp(SHARE_DIRECTORY_NAME + self.file_name, DOWNLOAD_DIRECTORY_NAME + self.file_name)
 
     @staticmethod
+    def remove_all_shared_files():
+        files = glob.glob(os.path.join(SHARE_DIRECTORY_NAME, "*"))
+        for file in files:
+            os.remove(file)
+
+    @staticmethod
     def remove_all_downloads():
         files = glob.glob(os.path.join(DOWNLOAD_DIRECTORY_NAME, "*"))
         for file in files:
