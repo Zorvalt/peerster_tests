@@ -2,6 +2,16 @@ Feature: Private messaging
   A node should be able to send a receive private messages from other peers
 
 
+  Scenario: A sends a message to neighbour B
+    Given a node "A" knowing "B"
+    And a node "B" knowing "A"
+    When a client sends "B" a message "Hi"
+    Then the node "A" wait for "RUMOR origin B" or max "100" seconds
+    When a client sends "A" a private message "M" to "B"
+    Then the node "A" should have logged "CLIENT MESSAGE "M" dest B"
+    Then the node "B" wait for "PRIVATE origin A" or max "10" seconds
+    Then the node "B" should have logged "PRIVATE origin A hop-limit 9 contents "M""
+
   Scenario: A sends a message to C through B
     Given a node "A" knowing "B"
     And a node "B" knowing "A,C"
@@ -11,7 +21,7 @@ Feature: Private messaging
     When a client sends "A" a private message "M" to "C"
     Then the node "A" should have logged "CLIENT MESSAGE "M" dest C"
     Then the node "C" wait for "PRIVATE origin A" or max "10" seconds
-    Then the node "C" should have logged "PRIVATE origin A hop-limit 9 contents "M""
+    Then the node "C" should have logged "PRIVATE origin A hop-limit 8 contents "M""
 
 
   Scenario: A sends a message to C through B in weired config
@@ -29,7 +39,6 @@ Feature: Private messaging
     Then the node "C" wait for "PRIVATE origin A" or max "100" seconds
     Then the node "C" should have logged "PRIVATE origin A"
     Then the node "A" should have logged "CLIENT MESSAGE "M" dest C"
-    Then the node "B" should not have logged "PRIVATE origin A"
     Then the node "C" should have logged "PRIVATE origin A"
 
 
@@ -49,10 +58,10 @@ Feature: Private messaging
 
     When a client sends "L" a message "Hi"
     Then the node "A" wait for "RUMOR origin L" or max "100" seconds
-    When a client sends "A" a private message "M" to "L"
-    Then the node "L" wait for "PRIVATE origin A" or max "100" seconds
+    When a client sends "A" a private message "M" to "K"
+    Then the node "K" wait for "PRIVATE origin A" or max "100" seconds
 
-    Then the node "A" should have logged "CLIENT MESSAGE "M" dest L"
+    Then the node "A" should have logged "CLIENT MESSAGE "M" dest K"
     Then the node "B" should not have logged "PRIVATE origin A"
     Then the node "C" should not have logged "PRIVATE origin A"
     Then the node "D" should not have logged "PRIVATE origin A"
@@ -62,8 +71,8 @@ Feature: Private messaging
     Then the node "H" should not have logged "PRIVATE origin A"
     Then the node "I" should not have logged "PRIVATE origin A"
     Then the node "J" should not have logged "PRIVATE origin A"
-    Then the node "K" should not have logged "PRIVATE origin A"
-    Then the node "L" should have logged "PRIVATE origin A hop-limit 0 contents "M""
+    Then the node "K" should have logged "PRIVATE origin A hop-limit 0 contents "M""
+    Then the node "L" should not have logged "PRIVATE origin A"
 
 
   Scenario: A sends a message to M in a too long way
@@ -86,7 +95,7 @@ Feature: Private messaging
     When a client sends "A" a private message "M" to "M"
 
     Then the node "M" wait for "PRIVATE origin A" or max "100" seconds
-    Then the node "A" should have logged "CLIENT MESSAGE "M" dest M"
+    Then the node "A" should not have logged "CLIENT MESSAGE "M" dest M"
     Then the node "B" should not have logged "PRIVATE origin A"
     Then the node "C" should not have logged "PRIVATE origin A"
     Then the node "D" should not have logged "PRIVATE origin A"
