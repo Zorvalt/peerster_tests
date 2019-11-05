@@ -28,7 +28,7 @@ class Client:
 
     @staticmethod
     def send_private_to_port(ui_port: int, message: str, dest: str) -> str:
-        command = ['./client/client', '-UIPort=' + str(ui_port), '-msg="' + message+'"', '-dest='+dest]
+        command = ['./client/client', '-UIPort=' + str(ui_port), '-msg=' + message+'', '-dest='+dest]
         return subprocess.check_output(command).decode()
 
     def share_file(self, filename):
