@@ -23,6 +23,27 @@ Feature: Private messaging
     Then the node "C" wait for "PRIVATE origin A" or max "5" seconds
     Then the node "C" should have logged "PRIVATE origin A hop-limit 8 contents M"
 
+  Scenario: A sends a message to D through B and C routed by route rumors
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a node "C" knowing "B"
+    And a node "D" knowing "C"
+    Then the node "A" wait for "RUMOR origin D" or max "20" seconds
+
+    When a client sends "A" a private message "M" to "D"
+    Then the node "D" wait for "PRIVATE origin A" or max "5" seconds
+    Then the node "D" should have logged "PRIVATE origin A"
+
+  Scenario: D sends a message to A through B and C routed by route rumors
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a node "C" knowing "B"
+    And a node "D" knowing "C"
+    Then the node "D" wait for "RUMOR origin A" or max "20" seconds
+
+    When a client sends "D" a private message "M" to "A"
+    Then the node "A" wait for "PRIVATE origin D" or max "5" seconds
+    Then the node "A" should have logged "PRIVATE origin D"
 
   Scenario: A sends a message to C through B in weired config
     Given a node "A" knowing "B"
