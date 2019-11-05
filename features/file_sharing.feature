@@ -5,7 +5,6 @@ Feature: File sharing
     Given a node "A"
     And a node "B" knowing "A"
     And a shared file "F1" of 3kB
-    And wait for 0.1 seconds
     When a client asks "A" to share file "F1"
     Then the node "B" wait for "RUMOR origin A" or max "5" seconds
     When a client asks "B" to download file "F1" from "A"
@@ -18,7 +17,6 @@ Feature: File sharing
     Given a shared file "F1" of 2MB
     And a node "A"
     And a node "B" knowing "A"
-    And wait for 0.1 seconds
     When a client asks "A" to share file "F1"
     Then the node "B" wait for "RUMOR origin A" or max "5" seconds
     When a client asks "B" to download file "F1" from "A"
@@ -32,7 +30,6 @@ Feature: File sharing
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
-    And wait for 0.1 seconds
     When a client asks "A" to share file "F1"
     Then the node "B" wait for "RUMOR origin A" or max "5" seconds
     When a client asks "C" to download file "F1" from "A"
@@ -46,7 +43,6 @@ Feature: File sharing
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
-    And wait for 0.1 seconds
     When a client asks "A" to share file "F1"
     Then the node "B" wait for "RUMOR origin A" or max "5" seconds
     When a client asks "C" to download file "F1" from "A"
