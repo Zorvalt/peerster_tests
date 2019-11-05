@@ -1,6 +1,20 @@
+import random
+
 from behave import *
 
 from peerster_objects.gossiper import Gossiper
+
+
+@given('a node "{name}" knowing "{number}" of "{first_neighbor}" to "{last_neighbor}"')
+def step_impl(context, name, number, first_neighbor, last_neighbor):
+    if name in context.nodes.keys():
+        raise EnvironmentError("The same node has been asked twice")
+
+    neighbors = []
+    for i in range(ord(first_neighbor), ord(last_neighbor) + 1):
+        neighbors.append(chr(i))
+    selected_neighbors = random.sample(neighbors, int(number))
+    context.nodes[name] = Gossiper(name, peers=','.join(selected_neighbors))
 
 
 @given('a node "{name}" knowing "{neighbors}"')
@@ -32,3 +46,15 @@ def step_impl(context, name, message):
 @then('output the log of "{name}" to file "{file}"')
 def step_impl(context, name, file):
     context.nodes[name].log_output(file)
+
+
+@then('all nodes should be running')
+def step_impl(context):
+    failed = []
+    for name, node in context.nodes.items():
+        if not node.is_running():
+            failed.append(name)
+
+    if len(failed) != 0:
+        print("Failed nodes: {}".format(','.join(failed)))
+        assert False

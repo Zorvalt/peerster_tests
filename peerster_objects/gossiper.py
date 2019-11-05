@@ -46,3 +46,6 @@ class Gossiper:
         with open(file, "w") as fout:
             self.output_file.seek(0)
             fout.write(self.output_file.read())
+
+    def is_running(self):
+        return self.process.poll() is None
