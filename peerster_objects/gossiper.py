@@ -36,6 +36,7 @@ class Gossiper:
         print("Waiting for gossiper {} to start...".format(name))
         while not self.search_output("Gossiper running"):
             time.sleep(0.1)
+            assert self.process.poll() is None
         print("\tStarted!")
 
     def search_output(self, needle: str) -> bool:
