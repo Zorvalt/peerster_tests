@@ -8,9 +8,9 @@ Feature: Private messaging
     When a client sends "B" a message "Hi"
     Then the node "A" wait for "RUMOR origin B" or max "100" seconds
     When a client sends "A" a private message "M" to "B"
-    Then the node "A" should have logged "CLIENT MESSAGE "M" dest B"
+    Then the node "A" should have logged "CLIENT MESSAGE M dest B"
     Then the node "B" wait for "PRIVATE origin A" or max "10" seconds
-    Then the node "B" should have logged "PRIVATE origin A hop-limit 9 contents "M""
+    Then the node "B" should have logged "PRIVATE origin A hop-limit 9 contents M"
 
   Scenario: A sends a message to C through B
     Given a node "A" knowing "B"
@@ -62,18 +62,18 @@ Feature: Private messaging
     When a client sends "A" a private message "M" to "K"
     Then the node "K" wait for "PRIVATE origin A" or max "5" seconds
 
-    Then the node "A" should have logged "CLIENT MESSAGE "M" dest K"
-    Then the node "B" should not have logged "PRIVATE origin A"
-    Then the node "C" should not have logged "PRIVATE origin A"
-    Then the node "D" should not have logged "PRIVATE origin A"
-    Then the node "E" should not have logged "PRIVATE origin A"
-    Then the node "F" should not have logged "PRIVATE origin A"
-    Then the node "G" should not have logged "PRIVATE origin A"
-    Then the node "H" should not have logged "PRIVATE origin A"
-    Then the node "I" should not have logged "PRIVATE origin A"
-    Then the node "J" should not have logged "PRIVATE origin A"
-    Then the node "K" should have logged "PRIVATE origin A hop-limit 0 contents "M""
-    Then the node "L" should not have logged "PRIVATE origin A"
+    Then the node "A" should have logged "CLIENT MESSAGE M dest K"
+    And the node "B" should not have logged "PRIVATE origin A"
+    And the node "C" should not have logged "PRIVATE origin A"
+    And the node "D" should not have logged "PRIVATE origin A"
+    And the node "E" should not have logged "PRIVATE origin A"
+    And the node "F" should not have logged "PRIVATE origin A"
+    And the node "G" should not have logged "PRIVATE origin A"
+    And the node "H" should not have logged "PRIVATE origin A"
+    And the node "I" should not have logged "PRIVATE origin A"
+    And the node "J" should not have logged "PRIVATE origin A"
+    And the node "K" should have logged "PRIVATE origin A hop-limit 0 contents M"
+    And the node "L" should not have logged "PRIVATE origin A"
 
 
   Scenario: A sends a message to M in a too long way
@@ -96,7 +96,7 @@ Feature: Private messaging
     When a client sends "A" a private message "M" to "M"
 
     Then the node "M" wait for "PRIVATE origin A" or max "5" seconds
-    Then the node "A" should not have logged "CLIENT MESSAGE M dest M"
+    Then the node "A" should have logged "CLIENT MESSAGE M dest M"
     Then the node "B" should not have logged "PRIVATE origin A"
     Then the node "C" should not have logged "PRIVATE origin A"
     Then the node "D" should not have logged "PRIVATE origin A"
