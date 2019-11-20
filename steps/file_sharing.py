@@ -8,7 +8,7 @@ from peerster_objects.shared_file import SharedFile
 def step_impl(context, filename, size):
     if filename in context.files.keys():
         raise ValueError("The same file has been declared twice")
-    context.files[filename] = SharedFile(size)
+    context.files[filename] = SharedFile(filename, size)
 
 
 @when('a client asks "{node_name}" to share file "{filename}"')

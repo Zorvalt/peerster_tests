@@ -15,9 +15,9 @@ def divide_chunks(l, n):
 
 
 class SharedFile:
-    def __init__(self, size: str):
+    def __init__(self, name: str, size: str):
         byte_size = human2bytes(size)
-        self.file_name = random_string()
+        self.file_name = name
         self.hashes = []
         with open(SHARE_DIRECTORY_NAME + self.file_name, "w") as fout:
             content = random_string(byte_size)
