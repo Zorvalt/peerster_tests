@@ -10,3 +10,13 @@ Feature: File search
   Scenario: Client should accept the keywords and the budget options together
     When a client asks "A" to search for "some_file" with budget 20
     # Then nothing, this should pass
+
+  # Gossiper tests
+  Scenario: Gossiper should fine file in direct neighbor
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a shared file "some_file" of size 1kB
+    When a client asks "A" to share file "some_file"
+    And a client asks "B" to search for "some_file" with budget 1
+    Then the node "B" wait for "FOUND match some_file at A" or max "6" seconds
+    And the node "B" should have logged "FOUND match some_file at A"
