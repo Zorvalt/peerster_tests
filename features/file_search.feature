@@ -81,10 +81,6 @@ Feature: File search
     And a client asks "C" to share file "target"
     And a client asks "D" to search for "target" with budget 7
     Then the node "D" wait for "FOUND match target at A" or max "1" seconds
-    And output the log of "A"
-    And output the log of "B"
-    And output the log of "C"
-    And output the log of "D"
     And the node "D" should have logged "FOUND match target at B"
     And the node "D" should have logged "FOUND match target at C"
     And the node "D" should have logged "FOUND match target at A"
