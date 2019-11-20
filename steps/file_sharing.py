@@ -4,7 +4,7 @@ from peerster_objects.client import Client
 from peerster_objects.shared_file import SharedFile
 
 
-@given('a shared file "{filename}" of {size}')
+@given('a shared file "{filename}" of size {size}')
 def step_impl(context, filename, size):
     if filename in context.files.keys():
         raise ValueError("The same file has been declared twice")

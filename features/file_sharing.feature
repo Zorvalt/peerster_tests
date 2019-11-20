@@ -4,7 +4,7 @@ Feature: File sharing
   Scenario: A node downloads a small file from a direct peer
     Given a node "A"
     And a node "B" knowing "A"
-    And a shared file "F1" of 3kB
+    And a shared file "F1" of size 3kB
     When a client asks "A" to share file "F1"
     Then the node "B" wait for "RUMOR origin A" or max "5" seconds
     When a client asks "B" to download file "F1" from "A"
@@ -14,7 +14,7 @@ Feature: File sharing
     And the node "B" should have reconstructed the file "F1"
 
   Scenario: A node downloads a big file from a direct peer
-    Given a shared file "F1" of 2MB
+    Given a shared file "F1" of size 2MB
     And a node "A"
     And a node "B" knowing "A"
     When a client asks "A" to share file "F1"
@@ -26,7 +26,7 @@ Feature: File sharing
     And the node "B" should have reconstructed the file "F1"
 
   Scenario: A node downloads a small file from an indirect peer
-    Given a shared file "F1" of 3kB
+    Given a shared file "F1" of size 3kB
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
@@ -39,7 +39,7 @@ Feature: File sharing
     And the node "C" should have reconstructed the file "F1"
 
   Scenario: A node downloads a big file from an indirect peer
-    Given a shared file "F1" of 2MB
+    Given a shared file "F1" of size 2MB
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
@@ -52,7 +52,7 @@ Feature: File sharing
     And the node "C" should have reconstructed the file "F1"
 
   Scenario: A node downloads a small file from an indirect peer separated by 8 other nodes
-    Given a shared file "F1" of 3kB
+    Given a shared file "F1" of size 3kB
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
@@ -73,7 +73,7 @@ Feature: File sharing
     And the node "K" should have reconstructed the file "F1"
 
   Scenario: A node downloads a big file from an indirect peer separated by 8 other nodes
-    Given a shared file "F1" of 2MB
+    Given a shared file "F1" of size 2MB
     And a node "A"
     And a node "B" knowing "A"
     And a node "C" knowing "B"
