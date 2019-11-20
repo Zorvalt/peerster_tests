@@ -17,6 +17,6 @@ Feature: File search
     And a node "B" knowing "A"
     And a shared file "some_file" of size 1kB
     When a client asks "A" to share file "some_file"
-    And a client asks "B" to search for "some_file" with budget 1
-    Then the node "B" wait for "FOUND match some_file at A" or max "6" seconds
+    And a client asks "B" to search for "some_file" with budget 2
+    Then the node "B" wait for "FOUND match some_file at A" or max "2" seconds
     And the node "B" should have logged "FOUND match some_file at A"
