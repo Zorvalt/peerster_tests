@@ -52,6 +52,11 @@ def step_impl(context, name, message, s):
         count += 1
 
 
+@step('output the log of "{name}"')
+def step_impl(context, name):
+    context.nodes[name].log_output(context.log_path + name + '.log')
+
+
 @then('output the log of "{name}" to file "{file}"')
 def step_impl(context, name, file):
     context.nodes[name].log_output(file)

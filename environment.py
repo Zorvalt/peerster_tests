@@ -5,9 +5,12 @@ from pathlib import Path
 from peerster_objects.shared_file import SharedFile
 
 
+def before_all(context):
+    context.log_path = os.getcwd() + '/logs/'
+    os.chdir("..")
+
+
 def before_feature(context, feature):
-    if not Path('main.go').is_file():
-        os.chdir("..")
     subprocess.call(["killall", "Peerster"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     assert subprocess.call(["go", "build"]) is 0
     assert subprocess.call(["go", "build"], cwd='./client') is 0
