@@ -44,3 +44,9 @@ class Client:
             '-dest={}'.format(source_node)
         ]
         return subprocess.call(command)
+
+    def search(self, keywords, budget=None):
+        command = ['./client/client', '-UIPort=' + str(self.ui_port), '-keywords=' + keywords + '']
+        if budget is not None:
+            command.append('-budget=' + str(budget))
+        return subprocess.call(command)
