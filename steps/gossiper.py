@@ -1,4 +1,5 @@
 import random
+import time
 
 from behave import *
 
@@ -41,6 +42,14 @@ def step_impl(context, name, message):
 def step_impl(context, name, message):
     found = context.nodes[name].search_output(message)
     assert found is False
+
+
+@then('the node "{name}" wait for "{message}" or max "{s}" seconds')
+def step_impl(context, name, message, s):
+    count = 0
+    while not context.nodes[name].search_output(message) and count/10 < int(s):
+        time.sleep(0.1)
+        count += 1
 
 
 @then('output the log of "{name}" to file "{file}"')
