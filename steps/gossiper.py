@@ -68,6 +68,7 @@ def step_impl(context):
     for name, node in context.nodes.items():
         if not node.is_running():
             failed.append(name)
+            context.nodes[name].log_output(context.log_path + name + '.log')
 
     if len(failed) != 0:
         print("Failed nodes: {}".format(','.join(failed)))

@@ -28,5 +28,15 @@ Feature: A lots of nodes
     And a node "Y" knowing "5" of "A" to "Z"
     And a node "Z" knowing "5" of "A" to "Z"
 
-    When wait for 60 seconds
+    When wait for 10 seconds
+    And a client sends a random message of size 200 to each gossiper
+    When wait for 1 seconds
+    And a client sends a random message of size 200 to each gossiper
+    When wait for 1 seconds
+    And a client sends a random message of size 600 to each gossiper
+    And a client sends a random message of size 600 to each gossiper
+    And a client sends a random message of size 600 to each gossiper
+    And a client sends a random message of size 600 to each gossiper
+
+    When wait for 30 seconds
     Then all nodes should be running

@@ -26,6 +26,11 @@ def step_impl(context, getter_node, filename, source_node):
                                getter_node, filename, source_node)
 
 
+@when("all downloaded files are removed from the directory")
+def step_impl(context):
+    SharedFile.remove_all_downloads()
+
+
 @then('the node "{getter_node}" should have downloaded metafile of "{filename}" from "{source_node}"')
 def step_impl(context, getter_node, filename, source_node):
     file = context.files[filename]
