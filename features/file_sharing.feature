@@ -92,3 +92,31 @@ Feature: File sharing
     And the node "K" should have downloaded metafile of "F1" from "A"
     And the node "K" should have downloaded chunks of "F1" from "A"
     And the node "K" should have reconstructed the file "F1"
+
+  Scenario Outline: A node downloading a file should then share it
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a node "C" knowing "B"
+    And a shared file "F1" of size <File size>
+
+    When a client asks "A" to share file "F1"
+    Then the node "B" wait for "RUMOR origin A" or max "5" seconds
+
+    When a client asks "B" to download file "F1" from "A"
+    Then the node "B" wait for "RECONSTRUCTED" or max "10" seconds
+
+    When all downloaded files are removed from the directory
+    And a client asks "C" to download file "F1" from "B"
+    Then the node "C" wait for "RECONSTRUCTED" or max "10" seconds
+
+    And output the log of "A"
+    And output the log of "B"
+    And output the log of "C"
+
+    And the node "C" should have downloaded metafile of "F1" from "B"
+    And the node "C" should have downloaded chunks of "F1" from "B"
+    And the node "C" should have reconstructed the file "F1"
+    Examples:
+      | File size |
+      | 3kB |
+      | 2MB |
