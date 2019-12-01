@@ -35,14 +35,16 @@ class Client:
         command = ['./client/client', '-UIPort=' + str(self.ui_port), '-file=' + filename + '']
         return subprocess.call(command)
 
-    def download_file(self, filename, hash_str, source_node):
+    def download_file(self, filename, hash_str, source_node=None):
         command = [
             './client/client',
             '-UIPort=' + str(self.ui_port),
             '-file={}'.format(filename),
-            '-request={}'.format(hash_str),
-            '-dest={}'.format(source_node)
+            '-request={}'.format(hash_str)
         ]
+        if source_node is not None:
+            command.append('-dest={}'.format(source_node))
+
         return subprocess.call(command)
 
     def search(self, keywords, budget=None):

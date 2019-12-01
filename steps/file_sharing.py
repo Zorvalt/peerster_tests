@@ -26,6 +26,14 @@ def step_impl(context, getter_node, filename, source_node):
                                getter_node, filename, source_node)
 
 
+@when('a client asks "{getter_node}" to download file "{filename}" from an implicit source')
+def step_impl(context, getter_node, filename):
+    file = context.files[filename]
+    if Client(getter_node).download_file(file.file_name, file.metahash) != 0:
+        raise EnvironmentError("The client failed to ask {} to download the file {} from an implicit source",
+                               getter_node, filename)
+
+
 @when("all downloaded files are removed from the directory")
 def step_impl(context):
     SharedFile.remove_all_downloads()

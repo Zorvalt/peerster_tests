@@ -212,3 +212,44 @@ Feature: File search
     And the node "A" should not have logged "FOUND match target at L"
     And the node "A" should not have logged "FOUND match target at N"
     And the node "A" should not have logged "SEARCH FINISHED"
+
+  Scenario Outline: A node should be able to download a file from an implicit direct source after a search
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a shared file "target" of size <size>
+    When a client asks "A" to share file "target"
+    And a client sends "A" a message "init"
+    And a client asks "B" to search for "target" with budget 2
+    Then the node "B" wait for "FOUND match target at A" or max "1" seconds
+    And the node "B" should have logged "FOUND match target at A"
+
+    When a client asks "B" to download file "target" from an implicit source
+    Then the node "B" wait for "RECONSTRUCTED" or max "10" seconds
+    And the node "B" should have downloaded metafile of "target" from "A"
+    And the node "B" should have downloaded chunks of "target" from "A"
+    And the node "B" should have reconstructed the file "target"
+    Examples:
+      | size |
+      | 3kB |
+      | 2MB |
+
+  Scenario Outline: A node should be able to download a file from an implicit indirect source after a search
+    Given a node "A"
+    And a node "B" knowing "A"
+    And a node "C" knowing "B"
+    And a shared file "target" of size <size>
+    When a client asks "A" to share file "target"
+    And a client sends "A" a message "init"
+    And a client asks "C" to search for "target" with budget 4
+    Then the node "C" wait for "FOUND match target at A" or max "1" seconds
+    And the node "C" should have logged "FOUND match target at A"
+
+    When a client asks "C" to download file "target" from an implicit source
+    Then the node "C" wait for "RECONSTRUCTED" or max "10" seconds
+    And the node "C" should have downloaded metafile of "target" from "A"
+    And the node "C" should have downloaded chunks of "target" from "A"
+    And the node "C" should have reconstructed the file "target"
+    Examples:
+      | size |
+      | 3kB |
+      | 2MB |

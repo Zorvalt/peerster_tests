@@ -109,10 +109,6 @@ Feature: File sharing
     And a client asks "C" to download file "F1" from "B"
     Then the node "C" wait for "RECONSTRUCTED" or max "10" seconds
 
-    And output the log of "A"
-    And output the log of "B"
-    And output the log of "C"
-
     And the node "C" should have downloaded metafile of "F1" from "B"
     And the node "C" should have downloaded chunks of "F1" from "B"
     And the node "C" should have reconstructed the file "F1"
