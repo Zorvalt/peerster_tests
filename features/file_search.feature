@@ -159,6 +159,8 @@ Feature: File search
     And the node "A" should have logged "FOUND match target at L"
     And the node "A" should have logged "FOUND match target at M"
     And the node "A" should not have logged "FOUND match target at N"
+    Then the node "A" wait for "SEARCH FINISHED" or max "5" seconds
+    And the node "A" should have logged "SEARCH FINISHED"
 
   Scenario: Expanding ring should not work too FAR
     Given a node "A" knowing "B"
