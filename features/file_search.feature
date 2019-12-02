@@ -253,3 +253,16 @@ Feature: File search
       | size |
       | 3kB |
       | 2MB |
+
+  Scenario: Chunks must have the right format
+    Given a node "A" knowing "B"
+    And a node "B" knowing "A"
+    And a shared file "target" of size 64kB
+    When a client sends "A" a message "Init"
+    And a client sends "B" a message "Init"
+    Then the node "A" wait for "RUMOR origin B" or max "10" seconds
+    When a client asks "B" to share file "target"
+    And a client asks "A" to search for "target" with budget 2
+    Then the node "A" wait for "FOUND match target at B" or max "5" seconds
+    And the node "A" should have logged "FOUND match target at B metafile="
+    And the node "A" should have logged "chunks=1,2,3,4,5,6,7,8"
