@@ -77,6 +77,5 @@ def step_impl(context):
 
 def debug_print(context):
     for name, node in context.nodes.items():
-        if not node.is_running():
-            context.nodes[name].log_output(name, True)
-            print("\n\n\n\n")
+        context.nodes[name].log_output(name, True)
+        print("\n\n\n\n")
