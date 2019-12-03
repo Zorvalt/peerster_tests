@@ -87,6 +87,7 @@ behave
   * Expanding ring should not work too FAR
   * A node should be able to download a file from an implicit direct source after a search
   * A node should be able to download a file from an implicit indirect source after a search
+  * Chunks must have the right format
 * File sharing
   * A node downloads a small file from a direct peer
   * A node downloads a big file from a direct peer
