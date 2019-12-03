@@ -29,7 +29,6 @@ Feature: File search
         When a client asks "A" to share file "some_file"
         And a client asks "C" to search for "some_file" with budget 4
         Then the node "C" wait for "FOUND match some_file at A" or max "1" seconds
-        And output the log of each running node
         And the node "C" should have logged "FOUND match some_file at A"
 ```
 
