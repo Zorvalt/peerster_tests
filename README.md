@@ -76,7 +76,11 @@ cd your_project/peerster_tests
 behave
 ```
 
-### Implemented scenarios by feature
+## Tools
+The Pycharm IDE from JetBrains has builtin supports for Gherkin and behave.
+![](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2014/09/BDD1.png)
+
+## Implemented scenarios by feature
 * Client
   * Client sends a message to a simple node
   * Client sends a message to a node
