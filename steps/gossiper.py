@@ -3,6 +3,7 @@ import time
 
 from behave import *
 
+from peerster_objects.client import Client
 from peerster_objects.gossiper import Gossiper
 
 
@@ -52,9 +53,24 @@ def step_impl(context, name, message, s):
         count += 1
 
 
+@then('wait for "{receiptient}" knowing "{sender}" or max "{s}" seconds')
+def step_impl(context, receiptient, sender, s):
+    count = 0
+    Client(sender).send("init")
+    while not context.nodes[receiptient].search_output("RUMOR origin "+sender) and count/10 < int(s):
+        time.sleep(0.1)
+        count += 1
+
+
 @step('output the log of "{name}"')
 def step_impl(context, name):
     context.nodes[name].log_output(context.log_path + name + '.log')
+
+
+@step('output the log of each running node')
+def step_impl(context):
+    for name, node in context.nodes.items():
+        node.log_output(context.log_path + name + '.log')
 
 
 @then('output the log of "{name}" to file "{file}"')
