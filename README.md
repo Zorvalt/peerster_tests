@@ -136,17 +136,17 @@ Directory explaination:
   * `@then('the node "{getter_node}" should have downloaded chunks of "{filename}" from "{source_node}"')`
   * `@then('the node "{getter_node}" should have reconstructed the file "{filename}"')`
  * Gossiper related
-  * `@given('a node "{name}" knowing "{number}" of "{first_neighbor}" to "{last_neighbor}"')`
-  * `@given('a node "{name}" knowing "{neighbors}"')`
-  * `@given('a node "{name}"')`
-  * `@then('the node "{name}" should have logged "{message}"')`
-  * `@then('the node "{name}" should not have logged "{message}"')`
-  * `@then('the node "{name}" wait for "{message}" or max "{s}" seconds')`
-  * `@then('wait for "{receiptient}" knowing "{sender}" or max "{s}" seconds')`
-  * `@step('output the log of "{name}"')`
-  * `@step('output the log of each running node')`
-  * `@then('output the log of "{name}" to file "{file}"')`
-  * `@then('all nodes should be running')`
+   * `@given('a node "{name}" knowing "{number}" of "{first_neighbor}" to "{last_neighbor}"')`
+   * `@given('a node "{name}" knowing "{neighbors}"')`
+   * `@given('a node "{name}"')`
+   * `@then('the node "{name}" should have logged "{message}"')`
+   * `@then('the node "{name}" should not have logged "{message}"')`
+   * `@then('the node "{name}" wait for "{message}" or max "{s}" seconds')`
+   * `@then('wait for "{receiptient}" knowing "{sender}" or max "{s}" seconds')`
+   * `@step('output the log of "{name}"')`
+   * `@step('output the log of each running node')`
+   * `@then('output the log of "{name}" to file "{file}"')`
+   * `@then('all nodes should be running')`
 * Gossiper in simple mode related
   * `@given('a simple node "{name}"')`
 * Utils
