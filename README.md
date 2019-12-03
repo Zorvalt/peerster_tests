@@ -26,8 +26,10 @@ Feature: File search
         And a node "C" knowing "B"
         And a shared file "some_file" of size 1kB
         Then wait for "A" knowing "C" or max "1" seconds
+        
         When a client asks "A" to share file "some_file"
         And a client asks "C" to search for "some_file" with budget 4
+        
         Then the node "C" wait for "FOUND match some_file at A" or max "1" seconds
         And the node "C" should have logged "FOUND match some_file at A"
 ```
@@ -36,6 +38,13 @@ Feature: File search
 
 Your gossiper needs to accept an option `-v` and output `Gossiper running` when it is up.
 This allows the tests to wait for your gossiper to be initialized.
+```go
+verbose := flag.Bool("v", false, "verbosity of the program")
+// ...
+if verbose {
+    fmt.Println("Gossiper running")
+}
+```
 
 Then, you need is python 3 and behave.
 https://behave.readthedocs.io/en/latest/install.html
