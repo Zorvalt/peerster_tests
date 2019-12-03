@@ -1,7 +1,7 @@
 Feature: Rumor
   A rumor should propagate between nodes
 
-  Scenario: Node shares a received message
+  Scenario: A rumor should propagate to a direct node
     Given a node "A" knowing "B"
     And a node "B"
     When a client sends "A" a message "M"
