@@ -2,7 +2,7 @@
 
 Collection of tests for the Peerster project of the CS438 course at EPFL.
 
-There are currently [29 scenarios testing 6 features](#implemented-scenarios-by-feature).
+There are currently [30 scenarios testing 6 features](#implemented-scenarios-by-feature).
 
 ## Disclamer
 
