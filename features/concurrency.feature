@@ -1,6 +1,6 @@
 Feature: A lots of nodes
 
-  Scenario: 26 nodes gossiping heavily
+  Scenario: 26 nodes gossiping should not crash
     Given a node "A" knowing "5" of "A" to "Z"
     And a node "B" knowing "5" of "A" to "Z"
     And a node "C" knowing "5" of "A" to "Z"
