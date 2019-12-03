@@ -43,10 +43,15 @@ class Gossiper:
         self.output_file.seek(0)
         return needle in self.output_file.read()
 
-    def log_output(self, file):
-        with open(file, "w") as fout:
+    def log_output(self, file, print_instead=False):
+        if not print_instead:
+            with open(file, "w") as fout:
+                self.output_file.seek(0)
+                fout.write(self.output_file.read())
+        else:
             self.output_file.seek(0)
-            fout.write(self.output_file.read())
+            print("################################ " + file + " ################################")
+            print(self.output_file.read())
 
     def is_running(self):
         return self.process.poll() is None

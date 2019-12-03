@@ -89,3 +89,9 @@ def step_impl(context):
     if len(failed) != 0:
         print("Failed nodes: {}".format(','.join(failed)))
         assert False
+
+
+def debug_print(context):
+    for name, node in context.nodes.items():
+        context.nodes[name].log_output(name, True)
+        print("\n\n\n\n")
